@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ResumeForge â€” Visual Resume Builder</title>
+  <meta name="description" content="A premium visual resume builder with live preview, ATS templates, keyword checker and instant PDF export." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Sora:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./css/theme.css" />
+  <link rel="stylesheet" href="./css/builder.css" />
+  <link rel="stylesheet" href="./css/preview.css" />
+  <link rel="stylesheet" href="./css/responsive.css" />
+  <link rel="stylesheet" href="./css/print.css" media="all" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230b1a2b'/%3E%3Cpath d='M9 8h10a5 5 0 0 1 0 10h-4l6 6h-4l-6-6v6H9z' fill='%23f5c96b'/%3E%3C/svg%3E" />
+</head>
+
+<body>
+  <!-- Top Navigation -->
+  <header class="app-header" role="banner">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="28" height="28">
+          <rect width="32" height="32" rx="8" fill="var(--brand-primary)"/>
+          <path d="M9 8h10a5 5 0 0 1 0 10h-4l6 6h-4l-6-6v6H9z" fill="var(--brand-accent)"/>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">ResumeForge</span>
+        <span class="brand-sub">Visual Resume Builder</span>
+      </div>
+    </div>
+
+    <nav class="header-actions" aria-label="Toolbar">
+      <div class="toolbar-group">
+        <button class="btn btn-ghost" id="btnUndo" data-testid="btn-undo" title="Undo (Ctrl+Z)">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 5V2L6 8l6 6V11a6 6 0 0 1 6 6h2a8 8 0 0 0-8-8z"/></svg>
+          <span>Undo</span>
+        </button>
+        <button class="btn btn-ghost" id="btnRedo" data-testid="btn-redo" title="Redo (Ctrl+Shift+Z)">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 5V2l6 6-6 6V11a6 6 0 0 0-6 6H4a8 8 0 0 1 8-8z"/></svg>
+          <span>Redo</span>
+        </button>
+      </div>
+
+      <div class="toolbar-group">
+        <label class="select-wrap" title="Template">
+          <span class="select-label">Template</span>
+          <select id="templateSelect" data-testid="template-select">
+            <option value="template1">Aurora â€” Modern</option>
+            <option value="template2">Meridian â€” Classic</option>
+            <option value="template3">Nova â€” Compact</option>
+          </select>
+        </label>
+        <label class="select-wrap" title="Font">
+          <span class="select-label">Font</span>
+          <select id="fontSelect" data-testid="font-select">
+            <option value="'Inter', system-ui, sans-serif">Inter</option>
+            <option value="'Fraunces', Georgia, serif">Fraunces</option>
+            <option value="'Sora', system-ui, sans-serif">Sora</option>
+            <option value="'Playfair Display', Georgia, serif">Playfair</option>
+            <option value="'JetBrains Mono', ui-monospace, monospace">JetBrains Mono</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="btn btn-ghost" id="btnImport" data-testid="btn-import" title="Import JSON">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 3v12l4-4 1.4 1.4L12 17.8l-5.4-5.4L8 11l4 4V3zM5 19h14v2H5z"/></svg>
+          Import
+        </button>
+        <button class="btn btn-ghost" id="btnExportJSON" data-testid="btn-export-json" title="Export JSON">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 21V9l-4 4-1.4-1.4L12 6.2l5.4 5.4L16 13l-4-4v12zM5 3h14v2H5z"/></svg>
+          Export JSON
+        </button>
+        <button class="btn btn-primary" id="btnExportPDF" data-testid="btn-export-pdf" title="Export PDF (Ctrl+P)">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M6 2h9l5 5v15H6zM14 3.5V8h4.5zM8 13h8v2H8zm0 4h8v2H8z"/></svg>
+          Export PDF
+        </button>
+      </div>
+
+      <div class="toolbar-group">
+        <button class="icon-btn" id="btnTheme" data-testid="btn-theme" title="Toggle theme">
+          <svg id="iconSun" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 4V2m0 20v-2m8-8h2M2 12h2m14.24 6.24l1.42 1.42M4.34 4.34l1.42 1.42m0 12.48l-1.42 1.42M19.66 4.34l-1.42 1.42M12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/></svg>
+        </button>
+        <button class="icon-btn" id="btnMobilePreview" data-testid="btn-mobile-preview" title="Toggle preview (mobile)">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M4 4h16v12H4zM2 20h20v2H2z"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Application -->
+  <main class="app-shell" id="appShell">
+    <!-- LEFT: FORM PANEL -->
+    <aside class="panel panel-form" id="panelForm" aria-label="Form panel">
+      <div class="panel-inner">
+        <div class="section-tabs" role="tablist" id="sectionTabs">
+          <!-- Tabs generated dynamically -->
+        </div>
+
+        <div class="form-canvas" id="formCanvas">
+          <!-- Form sections generated by formEngine.js -->
+        </div>
+
+        <div class="form-footer">
+          <div class="save-indicator" id="saveIndicator" data-testid="save-indicator">
+            <span class="save-dot"></span>
+            <span class="save-text">All changes saved</span>
+          </div>
+          <button class="btn btn-ghost btn-sm" id="btnAddCustom" data-testid="btn-add-custom">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M11 5h2v6h6v2h-6v6h-2v-6H5v-2h6z"/></svg>
+            New custom section
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT: PREVIEW PANEL -->
+    <section class="panel panel-preview" id="panelPreview" aria-label="Live preview">
+      <div class="preview-toolbar">
+        <div class="preview-toolbar-left">
+          <span class="chip chip-live" data-testid="preview-live">
+            <span class="live-dot"></span> Live
+          </span>
+          <span class="chip" id="pageInfo" data-testid="page-info">A4 Â· 210 Ã— 297 mm</span>
+        </div>
+
+        <div class="preview-toolbar-right">
+          <div class="zoom-group" role="group" aria-label="Zoom">
+            <button class="icon-btn sm" id="btnZoomOut" data-testid="btn-zoom-out" title="Zoom out">âˆ’</button>
+            <span class="zoom-value" id="zoomValue" data-testid="zoom-value">100%</span>
+            <button class="icon-btn sm" id="btnZoomIn" data-testid="btn-zoom-in" title="Zoom in">+</button>
+            <button class="icon-btn sm" id="btnZoomReset" data-testid="btn-zoom-reset" title="Reset zoom">â†º</button>
+          </div>
+
+          <button class="btn btn-ghost btn-sm" id="btnKeywordChecker" data-testid="btn-keyword-checker">
+            <svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M10 2a8 8 0 1 1-5.3 14L2 18.8V16l2.7-2.7A8 8 0 0 1 10 2zm0 2a6 6 0 1 0 0 12A6 6 0 0 0 10 4z"/></svg>
+            Keyword Checker
+          </button>
+        </div>
+      </div>
+
+      <div class="preview-scroll" id="previewScroll">
+        <div class="preview-stage" id="previewStage">
+          <article class="resume-page" id="resumePage" data-testid="resume-page">
+            <!-- Rendered by previewEngine.js -->
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- File input for import -->
+  <input type="file" id="fileImport" accept="application/json" hidden />
+
+  <!-- Keyword Checker Drawer -->
+  <div class="drawer" id="drawerKeyword" role="dialog" aria-modal="true" aria-labelledby="drawerKeywordTitle" hidden>
+    <div class="drawer-backdrop" data-close-drawer></div>
+    <div class="drawer-panel">
+      <header class="drawer-header">
+        <h2 id="drawerKeywordTitle" class="drawer-title">Keyword Checker</h2>
+        <p class="drawer-subtitle">Paste a job description. We'll find missing keywords, score match rate, and suggest additions.</p>
+        <button class="icon-btn" data-close-drawer aria-label="Close">
+          <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M18.3 5.71 12 12l6.3 6.29-1.42 1.42L10.59 13.4l-6.3 6.3-1.4-1.42L9.17 12 2.88 5.71l1.4-1.42 6.3 6.3 6.29-6.3z"/></svg>
+        </button>
+      </header>
+      <div class="drawer-body">
+        <textarea id="jobDescription" data-testid="job-description" class="jd-input" rows="10" placeholder="Paste the job description hereâ€¦"></textarea>
+        <div class="kw-actions">
+          <button class="btn btn-primary btn-sm" id="btnRunChecker" data-testid="btn-run-checker">Analyze</button>
+          <button class="btn btn-ghost btn-sm" id="btnClearChecker" data-testid="btn-clear-checker">Clear</button>
+        </div>
+
+        <div class="kw-results" id="kwResults" data-testid="kw-results">
+          <div class="kw-empty">Paste a JD and click <strong>Analyze</strong> to see your match score.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast-stack" id="toastStack" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- App -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+</html>

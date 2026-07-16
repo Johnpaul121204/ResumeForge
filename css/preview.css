@@ -1,0 +1,210 @@
+
+/*Action: file_editor create /app/ResumeForge/css/preview.css --file-text "/* =========================================================================
+   preview.css — Resume paper, typography, template variants
+   ========================================================================= */
+
+.resume-page {
+  --resume-font: var(--font-resume);
+  width: var(--a4-w);
+  min-height: var(--a4-h);
+  background: #ffffff;
+  color: #111827;
+  padding: 48px 52px;
+  box-shadow: var(--shadow-preview);
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  font-family: var(--resume-font);
+  font-size: 12.5px;
+  line-height: 1.55;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow var(--dur) var(--ease-out);
+}
+
+/* Dark preview canvas keeps paper light */
+[data-theme=\"dark\"] .resume-page {
+  border-color: rgba(255,255,255,0.06);
+}
+
+/* Typography */
+.resume-page h1, .resume-page h2, .resume-page h3, .resume-page h4 { margin: 0; }
+.resume-page a { color: inherit; text-decoration: none; }
+.resume-page ul { padding-left: 18px; margin: 6px 0; }
+.resume-page li { margin: 2px 0; }
+
+/* -------- Shared header -------- */
+.r-header {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  border-bottom: 2px solid #111827;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+}
+.r-header.no-photo { align-items: flex-start; }
+.r-photo {
+  width: 84px; height: 84px; border-radius: 50%;
+  overflow: hidden; flex-shrink: 0;
+  background: #f3f4f6;
+  border: 2px solid #111827;
+}
+.r-photo img { width: 100%; height: 100%; object-fit: cover; }
+.r-headline { flex: 1; min-width: 0; }
+.r-name {
+  font-size: 30px; font-weight: 800; letter-spacing: -0.01em;
+  line-height: 1.15; color: #0f172a;
+}
+.r-title-line {
+  color: #475569; font-size: 13px; margin-top: 4px; font-weight: 500;
+}
+.r-contact {
+  display: flex; flex-wrap: wrap; gap: 6px 14px;
+  margin-top: 8px;
+  font-size: 11.5px; color: #334155;
+}
+.r-contact-item { display: inline-flex; align-items: center; gap: 4px; }
+.r-contact-item svg { color: #64748b; }
+
+/* -------- Section styles -------- */
+.r-section { margin-top: 16px; break-inside: avoid; }
+.r-section:first-of-type { margin-top: 0; }
+.r-section-title {
+  font-size: 12.5px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: #0f172a;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid #e5e7eb;
+  margin-bottom: 8px;
+}
+
+.r-entry { margin-bottom: 10px; }
+.r-entry:last-child { margin-bottom: 0; }
+.r-entry-head {
+  display: flex; justify-content: space-between; gap: 12px;
+  align-items: baseline;
+}
+.r-entry-title { font-size: 13.5px; font-weight: 700; color: #0f172a; }
+.r-entry-sub { font-size: 12.5px; color: #334155; font-weight: 500; }
+.r-entry-meta { font-size: 11.5px; color: #64748b; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.r-entry-desc { font-size: 12px; color: #334155; margin-top: 4px; }
+.r-entry-desc ul { margin-top: 4px; }
+
+/* Skills */
+.r-skills-cat { margin-bottom: 6px; }
+.r-skills-cat-title { font-weight: 700; color: #0f172a; margin-right: 6px; font-size: 12.5px; }
+.r-skill-tag {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 11px; font-weight: 500;
+  margin: 2px 4px 2px 0;
+}
+
+/* Chips list (interests, languages, achievements) */
+.r-chip-list { display: flex; flex-wrap: wrap; gap: 6px 10px; }
+.r-chip {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: #0f172a;
+  font-size: 11.5px;
+}
+
+/* Keyword highlight overlay */
+.r-highlight {
+  background: linear-gradient(180deg, transparent 55%, rgba(245, 201, 107, 0.55) 55%);
+  padding: 0 1px;
+  border-radius: 2px;
+}
+
+/* ======================================================================
+   Template variants — applied via .tpl-{n} on .resume-page
+   ====================================================================== */
+
+/* -------- Template 1 : Aurora (Modern, two-column accent) -------- */
+.tpl-template1 {
+  --accent: #0b1a2b;
+  --accent-2: #f5c96b;
+  padding: 44px 48px;
+}
+.tpl-template1 .r-header {
+  border-bottom: none;
+  padding-bottom: 8px;
+  align-items: flex-end;
+}
+.tpl-template1 .r-name {
+  font-family: 'Fraunces', Georgia, serif;
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.tpl-template1 .r-name .accent-underline {
+  display: inline-block;
+  background: linear-gradient(180deg, transparent 68%, var(--accent-2) 68%);
+  padding: 0 4px;
+}
+.tpl-template1 .r-section-title {
+  border-bottom: none;
+  color: var(--accent);
+  position: relative;
+  padding-left: 14px;
+}
+.tpl-template1 .r-section-title::before {
+  content: \"\"; position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 8px; height: 8px; border-radius: 2px;
+  background: var(--accent-2);
+}
+.tpl-template1 .r-skill-tag { background: #eef2f7; color: #0b1a2b; }
+
+/* -------- Template 2 : Meridian (Classic, ATS optimized) -------- */
+.tpl-template2 {
+  --accent: #111827;
+  font-family: 'Inter', system-ui, sans-serif;
+  padding: 48px 56px;
+}
+.tpl-template2 .r-name { text-align: center; font-size: 26px; text-transform: uppercase; letter-spacing: 0.06em; }
+.tpl-template2 .r-contact { justify-content: center; }
+.tpl-template2 .r-header { flex-direction: column; align-items: center; text-align: center; border-bottom: 1px solid #0f172a; }
+.tpl-template2 .r-photo { display: none; }
+.tpl-template2 .r-section-title {
+  text-align: center;
+  border-bottom: 1px solid #0f172a;
+  padding-bottom: 3px;
+  font-size: 12px;
+}
+.tpl-template2 .r-entry-title { font-size: 13px; }
+.tpl-template2 .r-skill-tag { background: transparent; padding: 0; margin-right: 8px; }
+.tpl-template2 .r-skill-tag::after { content: \"•\"; margin-left: 8px; color: #94a3b8; }
+.tpl-template2 .r-skill-tag:last-child::after { content: \"\"; }
+
+/* -------- Template 3 : Nova (Compact sidebar) -------- */
+.tpl-template3 {
+  --accent: #0b1a2b;
+  --accent-2: #f5c96b;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+}
+.tpl-template3 .r-sidebar {
+  background: #0b1a2b;
+  color: #f8fafc;
+  padding: 32px 22px;
+}
+.tpl-template3 .r-body { padding: 32px 30px; }
+.tpl-template3 .r-header {
+  flex-direction: column; align-items: center; text-align: center;
+  border-bottom: none; padding-bottom: 0; margin-bottom: 18px;
+}
+.tpl-template3 .r-photo { border-color: var(--accent-2); }
+.tpl-template3 .r-name { color: #ffffff; font-size: 20px; text-align: center; }
+.tpl-template3 .r-title-line { color: #cbd5e1; }
+.tpl-template3 .r-contact { color: #cbd5e1; font-size: 10.5px; flex-direction: column; gap: 4px; }
+.tpl-template3 .r-contact-item { color: #e2e8f0; }
+.tpl-template3 .r-sidebar .r-section-title { color: var(--accent-2); border-bottom-color: rgba(255,255,255,0.15); }
+.tpl-template3 .r-sidebar .r-chip { background: rgba(255,255,255,0.08); color: #f1f5f9; }
+.tpl-template3 .r-sidebar .r-skill-tag { background: rgba(255,255,255,0.08); color: #f1f5f9; }
+.tpl-template3 .r-body .r-section-title { color: var(--accent); border-bottom-color: #e5e7eb; }
+.tpl-template3 .r-entry-title { color: #0b1a2b; }

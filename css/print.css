@@ -1,0 +1,84 @@
+
+/*Action: file_editor create /app/ResumeForge/css/print.css --file-text "/* =========================================================================
+   print.css — Perfect A4 print / PDF export
+   ========================================================================= */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    background: #ffffff !important;
+    overflow: visible !important;
+    height: auto !important;
+  }
+
+  /* Hide chrome */
+  .app-header,
+  .panel-form,
+  .preview-toolbar,
+  .drawer,
+  .toast-stack,
+  .form-footer,
+  .section-tabs {
+    display: none !important;
+  }
+
+  .app-shell {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    gap: 0 !important;
+  }
+
+  .panel {
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    display: block !important;
+  }
+
+  .preview-scroll {
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: visible !important;
+    display: block !important;
+  }
+
+  .preview-stage {
+    transform: none !important;
+  }
+
+  .resume-page {
+    width: 210mm !important;
+    min-height: 297mm !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 16mm 18mm !important;
+    page-break-after: always;
+    color: #111827 !important;
+    background: #ffffff !important;
+  }
+
+  /* Preserve template accents in print */
+  .r-highlight { background: linear-gradient(180deg, transparent 55%, #f5c96b 55%) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tpl-template3 .r-sidebar { background: #0b1a2b !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .tpl-template3 .r-sidebar * { color: #f1f5f9 !important; }
+  .tpl-template3 .r-sidebar .r-section-title { color: #f5c96b !important; }
+  .r-skill-tag { background: #f1f5f9 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  .r-section, .r-entry { page-break-inside: avoid; break-inside: avoid; }
+  .r-header { page-break-after: avoid; }
+}
+
+/* Print helper class toggled by pdf.js for consistent color output */
+.print-mode {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
